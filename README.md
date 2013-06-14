@@ -1,6 +1,6 @@
 # CylonStuff
 
-## Plugins and hooks ?
+### Plugins and hooks ?
 
 With Cylon, you can create plugins (and hooks in the future). Yeah.
 
@@ -9,7 +9,7 @@ That's the main directory to place both plugins and hooks.
 
 During this explanation, we'll asume that your plugin_dir is '/usr/local/share/cylon'.
 
-## Directory structure
+### Directory structure
 
 You have to respect the directory structure.
 
@@ -28,7 +28,7 @@ Each plugin or hook has its own directory.
 
 You have to respect the directory structure.
 
-## Quick start
+### Quick start
 
     # mkdir -p /usr/local/share/cylon
     # chown -R user:group /usr/local/share/cylon
@@ -37,21 +37,21 @@ You have to respect the directory structure.
     # vi /etc/cylon.yml
     [change plugin_dir to /usr/local/share/cylon]
 
-## Developing plugins
+### Developing plugins
 
 SOON.
 
-## Developing hooks
+### Developing hooks
 
 SOON.
 
-## Need help ?
+### Need help ?
 
 Add an issue on github ! ;)
 
 Jabber: support@rootest.rocknroot.org
 
-## License
+### License
 
 Copyright (c) 2013, RocknRoot
 All rights reserved.

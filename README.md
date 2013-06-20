@@ -39,7 +39,7 @@ You have to respect the directory structure.
 
 ### Developing plugins
 
-SOON.
+[Read the fraking manual.](https://github.com/RocknRoot/CylonStuff/blob/master/plugins/README.md)
 
 ### Developing hooks
 

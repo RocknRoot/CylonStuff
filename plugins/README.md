@@ -1,4 +1,4 @@
-## Devloping plugins
+## Developing plugins
 
 ### Plugins
 
@@ -32,10 +32,10 @@ We are going to write our first Public plugin (MUC and private chat usage):
 from cylon.command import Public
 
 class Toto(Public):
-  def lol(self, *args):
+  def lol(self, body, from_, chat_type, args):
     return "lol function"
 
-  def help(self, *args):
+  def help(self, body, from_, chat_type, args):
     msg = "\ntoto plugin:\n\
     fs help  - display help\n\
     fs lol   - useless command\n"
@@ -66,20 +66,30 @@ class Toto(Private):
 Cylon method to call plugin is simple.
 If you type '!tk toto lol', Cylon will interpret this as 'I need execute lol method from Toto class im my plugin list'
 
-All your callable methods have to be prototyped this way:
+All your callable methods have to be prototyped this way (you can change their name, except 'self' of course,  but you need 5 arguments !):
+
 ```python
-def command_example(self, *args):
+def command_example(self, body, from_, chat_type, args):
 ```
+
+* body argument: message received from jabber (like '!tk toto lol' previously)
+* from_: jabber message sender
+* chat_type: 'chat' or 'groupchat'
+* args: Array of arguments (in '!tk toto lol' case, args == ['lol'])
 
 Moreover, you have to implement help method. If not, your module won't be loaded.
 
 Finally, all callable methods have to return string.
 
-That's it
+That's it.
 
 ### Last step
 
 Ensure that your plugin directory and file are readable for your cylon executing user.
+
+Ensure that you have a log file created with good rights.
+
+Ensure that you have a readable configuration file.
 
 Start the bot.
 

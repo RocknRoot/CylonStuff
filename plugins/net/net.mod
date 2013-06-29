@@ -9,6 +9,8 @@ class Net(Private):
     p = subprocess.Popen(["ping", "-c", "1", args[0]], stdout=subprocess.PIPE)
     out, err = p.communicate()
     output = "\n%s" % out
+    if out == "":
+      output = "\nUnreachable... :("
     if err != None:
       output = err
     logging.info("Plugin net ping call: %s" % output)

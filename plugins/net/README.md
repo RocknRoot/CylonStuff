@@ -17,7 +17,7 @@ Assuming your prefix is '!fk':
 Assuming /etc/cylon.yml is your configuration file:
 
 * Open /etc/cylon.yml
-* Add fs to the loaded_plugins_at_start list (- net)
+* Add net to the loaded_plugins_at_start list (- net)
 * Restart Cylon
 
 ### Need help ?

@@ -1,4 +1,4 @@
-from cylon.command import Public
+from cylon.plugin import Public
 import httplib2, re
 import logging
 

@@ -1,6 +1,6 @@
 import logging
 import subprocess
-from cylon.command import Private
+from cylon.plugin import Private
 
 class Fs(Private):
   def space(self, body, from_user, chat_type, args):

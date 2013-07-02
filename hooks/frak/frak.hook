@@ -1,10 +1,10 @@
 from cylon.hook import Hook
 
-class Frak(hook):
+class Frak(Hook):
 
 
   ACTIONS = {
-    r'fuck': frakkify
+    r'fuck': 'frakkify'
   }
 
 

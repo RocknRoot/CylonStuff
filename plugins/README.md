@@ -29,7 +29,7 @@ We are going to write our first Public plugin (MUC and private chat usage):
     $ vim toto.mod
 ```python
 
-from cylon.command import Public
+from cylon.plugin import Public
 
 class Toto(Public):
   def lol(self, body, from_, chat_type, args):
@@ -46,11 +46,11 @@ class Toto(Public):
 In each plugin, you need to import Private or Public class with:
 
 ```python
-from cylon.command import Private
+from cylon.plugin import Private
 ```
 or
 ```python
-from cylon.command import Public
+from cylon.plugin import Public
 ```
 
 If you want that your plugin be public:

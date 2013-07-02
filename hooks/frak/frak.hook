@@ -4,7 +4,7 @@ class Frak(hook):
 
 
   ACTIONS = {
-    /fuck/ : frakkify
+    r'fuck': frakkify
   }
 
 

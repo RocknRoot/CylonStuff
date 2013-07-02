@@ -1,0 +1,12 @@
+from cylon.hook import Hook
+
+class Frak(hook):
+
+
+  ACTIONS = {
+    /fuck/ : frakkify
+  }
+
+
+  def frakkify(self, body, from_user, args):
+    return "Not fuck, frak. So say we all !"

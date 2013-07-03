@@ -1,3 +1,4 @@
+import re
 from cylon.hook import Hook
 
 class Frak(Hook):
@@ -9,4 +10,5 @@ class Frak(Hook):
 
 
   def frakkify(self, body, from_user, args):
-    return "Not fuck, frak. So say we all !"
+    msg = re.sub('(?i)' + re.escape('fuck'), 'frak', body)
+    return "Frakker ! \"" + msg + "\""

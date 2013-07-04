@@ -1,0 +1,27 @@
+import httplib2, re
+from cylon.hook import Hook
+
+class Url(Hook):
+
+
+  ACTIONS = {
+    r'(?i)https?' : 'get_title'
+  }
+
+
+  def get_title(self, body, from_user, args):
+    ret = li = []
+    urls = re.findall(r'(https?://\S+[^.,!? ])', body)
+    if urls != []:
+      titlte_reg_pattern = re.compile('(?i)<TITLE>(.*?)</TITLE>')
+      http = httplib2.Http()
+      for url in urls:
+        try:
+          headers, body = http.request(url)
+          li = titlte_reg_pattern.findall(body)
+        except:
+          pass
+        if li != []:
+          ret.append(li[0])
+      if ret != []:
+        return ", ".join(ret)

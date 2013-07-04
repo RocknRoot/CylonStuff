@@ -1,4 +1,4 @@
-import httplib2, re
+import httplib2, re, HTMLParser, logging
 from cylon.hook import Hook
 
 class Url(Hook):
@@ -15,6 +15,7 @@ class Url(Hook):
     if urls != []:
       titlte_reg_pattern = re.compile('(?i)<TITLE>(.*?)</TITLE>')
       http = httplib2.Http()
+      parser = HTMLParser.HTMLParser()
       for url in urls:
         try:
           headers, body = http.request(url)
@@ -22,6 +23,6 @@ class Url(Hook):
         except:
           pass
         if li != []:
-          ret.append(li[0])
+          ret.append(parser.unescape(li[0]))
       if ret != []:
         return ", ".join(ret)

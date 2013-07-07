@@ -43,7 +43,7 @@ You have to respect the directory structure.
 
 ### Developing hooks
 
-SOON.
+[Read the fraking manual.](https://github.com/RocknRoot/CylonStuff/blob/master/hooks/README.md)
 
 ### Need help ?
 

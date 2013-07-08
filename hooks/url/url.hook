@@ -14,14 +14,16 @@ class Url(Hook):
     urls = re.findall(r'(https?://\S+[^.,!? ])', body)
     if urls != []:
       titlte_reg_pattern = re.compile('(?i)<TITLE>(.*?)</TITLE>')
-      http = httplib2.Http()
+      # To get titles on https pages, we need to disable ssl validation.
+      http = httplib2.Http(disable_ssl_certificate_validation=True)
       parser = HTMLParser.HTMLParser()
       for url in urls:
         try:
           headers, body = http.request(url)
           body = body.decode('utf-8')
           li = titlte_reg_pattern.findall(body)
-        except:
+        except Exception, e:
+          logging.error('Url hook: '+ str(e))
           pass
         if li != []:
           ret.append(parser.unescape(li[0]))

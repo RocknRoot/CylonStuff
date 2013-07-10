@@ -19,7 +19,8 @@ class Url(Hook):
       parser = HTMLParser.HTMLParser()
       for url in urls:
         try:
-          headers, body = http.request(url)
+          headers, body = http.request(url,
+                          headers={'User-Agent' : "Cylon Browser"})
           body = body.decode('utf-8')
           li = titlte_reg_pattern.findall(body)
         except Exception, e:

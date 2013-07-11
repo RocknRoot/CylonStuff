@@ -21,7 +21,7 @@ class Url(Hook):
         try:
           headers, body = http.request(url,
                           headers={'User-Agent' : "Cylon Browser"})
-          body = body.decode('utf-8')
+          body = body.decode('utf-8', "replace")
           li = titlte_reg_pattern.findall(body)
         except Exception, e:
           logging.error('Url hook: '+ str(e))

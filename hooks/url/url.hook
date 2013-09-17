@@ -1,4 +1,5 @@
-import httplib2, re, HTMLParser, logging
+import urllib2, re, logging
+from BeautifulSoup import BeautifulSoup
 from cylon.hook import Hook
 
 class Url(Hook):
@@ -13,20 +14,27 @@ class Url(Hook):
     ret = li = []
     urls = re.findall(r'(https?://\S+[^.,!? ])', body)
     if urls != []:
-      titlte_reg_pattern = re.compile('(?i)<TITLE>(.*?)</TITLE>')
-      # To get titles on https pages, we need to disable ssl validation.
-      http = httplib2.Http(disable_ssl_certificate_validation=True)
-      parser = HTMLParser.HTMLParser()
       for url in urls:
         try:
-          headers, body = http.request(url,
-                          headers={'User-Agent' : "Cylon Browser"})
-          body = body.decode('utf-8', "replace")
-          li = titlte_reg_pattern.findall(body)
+          headers = {'User-Agent' : 'Cylon Browser'}
+          request = urllib2.Request(url, None, headers)
+          response = urllib2.urlopen(request)
+          logging.debug(response.headers)
+          enc = response.headers['content-type'].split('charset=')
+          # UTF-8 or ISO-8859-1
+          if len(enc) > 1:
+            encoding = enc[-1]
+          else:
+            encoding = "iso-8859-1"
+          content = response.read()
+          body = content.decode(encoding, "replace")
+          soup = BeautifulSoup(body)
+          li = soup.html.head.title.string.strip()
+          logging.debug(li)
         except Exception, e:
           logging.error('Url hook: '+ str(e))
           pass
         if li != []:
-          ret.append(parser.unescape(li[0]))
+          ret.append(li)
       if ret != []:
         return ", ".join(ret)

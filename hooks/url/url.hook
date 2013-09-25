@@ -1,4 +1,5 @@
 import urllib2, re, logging
+import HTMLParser
 from BeautifulSoup import BeautifulSoup
 from cylon.hook import Hook
 
@@ -13,6 +14,7 @@ class Url(Hook):
   def get_title(self, body, from_user, args):
     ret = li = []
     urls = re.findall(r'(https?://\S+[^.,!? ])', body)
+    p = HTMLParser.HTMLParser()
     if urls != []:
       for url in urls:
         try:
@@ -35,6 +37,6 @@ class Url(Hook):
           logging.error('Url hook: '+ str(e))
           pass
         if li != []:
-          ret.append(li)
+          ret.append(p.unescape(li))
       if ret != []:
         return ", ".join(ret)

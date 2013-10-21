@@ -12,31 +12,24 @@ class Url(Hook):
 
 
   def get_title(self, body, from_user, args):
-    ret = li = []
+    ret = []
     urls = re.findall(r'(https?://\S+[^.,!? ])', body)
     p = HTMLParser.HTMLParser()
-    if urls != []:
-      for url in urls:
-        try:
-          headers = {'User-Agent' : 'Cylon Browser'}
+    headers = {'User-Agent' : 'Cylon Browser'}
+    try:
+      if urls != []:
+        for url in urls:
           request = urllib2.Request(url, None, headers)
           response = urllib2.urlopen(request)
-          logging.debug(response.headers)
-          enc = response.headers['content-type'].split('charset=')
-          # UTF-8 or ISO-8859-1
-          if len(enc) > 1:
-            encoding = enc[-1]
-          else:
-            encoding = "iso-8859-1"
           content = response.read()
-          body = content.decode(encoding, "replace")
-          soup = BeautifulSoup(body)
-          li = soup.html.head.title.string.strip()
-          logging.debug(li)
-        except Exception, e:
-          logging.error('Url hook: '+ str(e))
-          pass
-        if li != []:
-          ret.append(p.unescape(li))
-      if ret != []:
-        return ", ".join(ret)
+          soup = BeautifulSoup(content)
+          title = soup.html.head.title.string.strip()
+          title = title.decode("UTF-8", "replace")
+          logging.debug(title)
+          if title != None:
+            ret.append(p.unescape(title))
+        if ret != []:
+          return ", ".join(ret)
+    except Exception, e:
+      logging.error('Url hook: '+ str(e))
+      pass

@@ -24,7 +24,6 @@ class Url(Hook):
           content = response.read()
           soup = BeautifulSoup(content)
           title = soup.html.head.title.string.strip()
-          title = title.decode("UTF-8", "replace")
           logging.debug(title)
           if title != None:
             ret.append(p.unescape(title))

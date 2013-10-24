@@ -1,7 +1,7 @@
-import urllib2, re, logging
+import re, logging
 import HTMLParser
-from BeautifulSoup import BeautifulSoup
 from cylon.hook import Hook
+from goose import Goose
 
 class Url(Hook):
 
@@ -15,15 +15,11 @@ class Url(Hook):
     ret = []
     urls = re.findall(r'(https?://\S+[^.,!? ])', body)
     p = HTMLParser.HTMLParser()
-    headers = {'User-Agent' : 'Cylon Browser'}
+    g = Goose({'browser_user_agent': 'Cylon Browser'})
     try:
       if urls != []:
         for url in urls:
-          request = urllib2.Request(url, None, headers)
-          response = urllib2.urlopen(request)
-          content = response.read()
-          soup = BeautifulSoup(content)
-          title = soup.html.head.title.string.strip()
+          title = g.extract(url=url).title
           logging.debug(title)
           if title != None:
             ret.append(p.unescape(title))
